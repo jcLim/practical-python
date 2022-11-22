@@ -8,18 +8,29 @@ import sys
 def read_portfolio(filename):
 
     portfolio = {}
+    portout = []
 
     with open(filename, 'rt') as f:
+
         rows = csv.reader(f)
         headers = next(rows)
-        for row in f:
-            portfolio[headers[0]] = row[0]
-            portfolio[headers[1]] = row[1]
-            portfolio[headers[2]] = row[2]
- #           holding = (row[0], int(row[1]), float(row[2]))
- #           portfolio.append(holding)
+        print("headers ->",  headers)
+        print("headers row - ", headers[0], headers[1], headers[2])
 
-    return portfolio
+        for line in f:
+            row = line.split(',')
+            portfolio[headers[0]] = row[0]
+            portfolio[headers[1]] = int(row[1])
+            portfolio[headers[2]] = float(row[2])
+            print(type(portfolio), len(portfolio))
+
+            portout.append(dict(portfolio))
+            print(row)
+            print(portfolio)
+            print(portout)
+
+    return portout
+
 
 if len(sys.argv) == 2:
     filename = sys.argv[1]
